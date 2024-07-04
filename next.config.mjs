@@ -3,8 +3,8 @@ const nextConfig = {
     rewrites(){
         return [
             {
-                source: '/calculator',
-                destination: '/api/calculator',
+                source: '/calculate',
+                destination: '/api/calculate',
             }
         ]
     }
