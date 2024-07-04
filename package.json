@@ -11,14 +11,15 @@
     "test:e2e": "playwright test"
   },
   "dependencies": {
+    "airport-data-js": "^1.0.6",
     "next": "14.2.4",
     "react": "^18",
     "react-dom": "^18",
     "ts-node": "^10.9.2"
   },
   "devDependencies": {
-    "@testing-library/react": "^16.0.0",
     "@playwright/test": "^1.45.1",
+    "@testing-library/react": "^16.0.0",
     "@types/node": "^20.14.9",
     "@types/react": "^18",
     "@types/react-dom": "^18",
