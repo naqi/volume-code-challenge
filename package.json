@@ -11,7 +11,6 @@
     "test:e2e": "playwright test"
   },
   "dependencies": {
-    "airport-data-js": "^1.0.6",
     "next": "14.2.4",
     "react": "^18",
     "react-dom": "^18",

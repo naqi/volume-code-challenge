@@ -1,5 +1,4 @@
 import {NextRequest, NextResponse} from "next/server";
-import {airportData} from "airport-data-js"
 type Flight = [string, string];
 type Payload = {
     flights: Flight[]
@@ -26,17 +25,11 @@ export async function POST(request: NextRequest){
         const sourceSet = new Set<string>();
 
         // Populate the flight map and track sources and destinations
-        try {
-            flights.forEach(([source, destination]) => {
-                if (airportData.getAirportByIcao(source) && airportData.getAirportByIcao(destination)) { //This library throws an error if code is invalid ¯\_(ツ)_/¯
-                    flightMap.set(source, destination);
-                    sourceSet.add(source);
-                    destinationSet.add(destination);
-                }
-            });
-        } catch (ex) {
-            return errorResponse(`Invalid airport code. Please check your data`, 404)
-        }
+        flights.forEach(([source, destination]) => {
+            flightMap.set(source, destination);
+            sourceSet.add(source);
+            destinationSet.add(destination);
+        });
 
         // Find the starting point (a source that is not a destination)
         let start: string | undefined;
@@ -59,7 +52,7 @@ export async function POST(request: NextRequest){
 
     }
     catch (error) {
-        return errorResponse("Missing parameter `flights` or airport code not valid", 404)
+        return errorResponse("Missing parameter `flights`", 404)
     }
 }
 
@@ -68,8 +61,8 @@ function findFlightPath(flightMap: Map<string, string>, start: string): (string 
     const flightPath: string[] = [];
     let path: string | undefined = start
     while (path) {
-        flightPath.push(start);
-        path = flightMap.get(start);
+        flightPath.push(path);
+        path = flightMap.get(path);
     }
     if(flightPath.length >= 2) {
         return [flightPath.shift(), flightPath.pop()];
